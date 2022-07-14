@@ -1,85 +1,42 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router';
+import { InfoMessageContainer } from 'churchtools-styleguide';
+import useToasts from './composables/useToasts';
+import Navigation from './components/Navigation.vue';
+const { toasts, removeToast } = useToasts();
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="flex flex-col min-h-screen bg-gradient-to-r from-gray-700/20 to-primary-700/20">
+        <Navigation />
+        <RouterView />
     </div>
-  </header>
-
-  <RouterView />
+    <InfoMessageContainer :messages="toasts" @close-info-message="removeToast($event.id)" />
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+html {
+    font-size: 62.5%;
 }
+body {
+    --primary-50: var(--teal-50);
+    --primary-100: var(--teal-100);
+    --primary-200: var(--teal-200);
+    --primary-300: var(--teal-300);
+    --primary-400: var(--teal-400);
+    --primary-500: var(--teal-500);
+    --primary-600: var(--teal-600);
+    --primary-700: var(--teal-700);
+    --primary-800: var(--teal-800);
+    --primary-900: var(--teal-900);
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+    /* --markdown-size: 1;
+    --menu-default-height: 56px; */
+    font-size: 1.4rem;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+    flex-direction: column;
+    min-height: 100vh;
 }
 </style>

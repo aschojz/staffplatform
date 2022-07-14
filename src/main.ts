@@ -1,14 +1,25 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { churchtoolsClient } from '@churchtools/churchtools-client';
+import { API_URL } from '../config';
 
-import App from './App.vue'
-import router from './router'
+churchtoolsClient.setBaseUrl(API_URL);
 
-import './assets/main.css'
+import App from './App.vue';
+import router from './router/router';
 
-const app = createApp(App)
+import './assets/main.css';
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(createPinia());
+app.use(router);
+
+app.mixin({
+    methods: {
+        t: e => e,
+        escapeHtmlRelaxed: e => e,
+    },
+});
+
+app.mount('#app');
